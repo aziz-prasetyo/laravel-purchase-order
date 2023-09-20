@@ -65,6 +65,21 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('permissions/{user}/repeat', 'PermissionController@repeat')->name('permissions.repeat');
     Route::get('dashboard/log-chart', 'DashboardController@getLogChartData')->name('dashboard.log.chart');
     Route::get('dashboard/registration-chart', 'DashboardController@getRegistrationChartData')->name('dashboard.registration.chart');
+
+    // Products
+    Route::get('products', 'ProductController@index')->name('products');
+    Route::get('products/{product}', 'ProductController@show')->name('products.show');
+    Route::get('products/{product}/edit', 'ProductController@edit')->name('products.edit');
+    Route::put('products/{product}', 'ProductController@update')->name('products.update');
+    Route::any('products/{product}/destroy', 'ProductController@destroy')->name('products.destroy');
+    Route::get('purchase-orders', 'PurchaseOrderController@index')->name('purchase_orders');
+    Route::get('purchase-order-lines', 'PurchaseOrderLineController@index')->name('purchase_order_lines');
+    Route::get('purchase-order-lines/create', 'PurchaseOrderLineController@create')->name('purchase_order_lines.create');
+    Route::get('purchase-order-lines/{purchaseOrderLine}', 'PurchaseOrderLineController@show')->name('purchase_order_lines.show');
+    Route::get('purchase-order-lines/{purchaseOrderLine}/edit', 'PurchaseOrderLineController@edit')->name('purchase_order_lines.edit');
+    Route::put('purchase-order-lines/{purchaseOrderLine}', 'PurchaseOrderLineController@update')->name('purchase_order_lines.update');
+    Route::any('purchase-order-lines/{purchaseOrderLine}/destroy', 'PurchaseOrderLineController@destroy')->name('purchase_order_lines.destroy');
+    Route::post('purchase-order-lines', 'PurchaseOrderLineController@store')->name('purchase_order_lines.store');
 });
 
 
