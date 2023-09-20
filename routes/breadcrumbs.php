@@ -20,4 +20,12 @@ Breadcrumbs::register('admin.users.edit', function (Generator $breadcrumbs, \App
     $breadcrumbs->push(__('views.admin.users.edit.title', ['name' => $user->name]));
 });
 
+Breadcrumbs::register('admin.products', function (Generator $breadcrumbs) {
+    $breadcrumbs->push(__('views.admin.dashboard.title'), route('admin.dashboard'));
+    $breadcrumbs->push(__('views.admin.products.index.title'));
+});
 
+Breadcrumbs::register('admin.purchase_order_lines', function (Generator $breadcrumbs) {
+    $breadcrumbs->push(__('views.admin.dashboard.title'), route('admin.dashboard'));
+    $breadcrumbs->push(__('views.admin.purchaseOrderLines.index.title'));
+});
