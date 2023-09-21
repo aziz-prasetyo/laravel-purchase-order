@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\PurchaseOrderLine;
 use DateTime;
 use Validator;
@@ -27,7 +28,7 @@ class PurchaseOrderLineController extends Controller
      */
     public function create()
     {
-        return view('admin.purchase-order-lines.create');
+        return view('admin.purchase-order-lines.create', ['products' => Product::all()]);
     }
 
     /**
@@ -40,6 +41,7 @@ class PurchaseOrderLineController extends Controller
     public function store(Request $request, PurchaseOrderLine $purchaseOrderLine)
     {
         $validator = Validator::make($request->all(), [
+            'products' => 'required',
             'qty' => 'required',
             'price' => 'required',
             'discount' => 'required',
@@ -47,6 +49,7 @@ class PurchaseOrderLineController extends Controller
 
         if ($validator->fails()) return redirect()->back()->withErrors($validator->errors());
 
+        $purchaseOrderLine->product_id = $request->post('products');
         $purchaseOrderLine->qty = $request->post('qty');
         $purchaseOrderLine->price = $request->post('price');
         $purchaseOrderLine->discount = $request->post('discount');

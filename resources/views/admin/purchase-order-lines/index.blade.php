@@ -12,7 +12,7 @@
         <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
             <thead>
             <tr>
-                <th>@sortablelink('product_id', __('views.admin.purchaseOrderLines.index.table_header_0'),['page' => $purchaseOrderLines->currentPage()])</th>
+                <th>@sortablelink('product', __('views.admin.purchaseOrderLines.index.table_header_0'),['page' => $purchaseOrderLines->currentPage()])</th>
                 <th>@sortablelink('qty',  __('views.admin.purchaseOrderLines.index.table_header_1'),['page' => $purchaseOrderLines->currentPage()])</th>
                 <th>@sortablelink('price', __('views.admin.purchaseOrderLines.index.table_header_2'),['page' => $purchaseOrderLines->currentPage()])</th>
                 <th>@sortablelink('discount', __('views.admin.purchaseOrderLines.index.table_header_3'),['page' => $purchaseOrderLines->currentPage()])</th>
@@ -25,7 +25,7 @@
             <tbody>
             @foreach($purchaseOrderLines as $purchaseOrderLine)
                 <tr>
-                    <td>{{ $purchaseOrderLine->product_id }}</td>
+                    <td>{{ $purchaseOrderLine->product->product_name }}</td>
                     <td>{{ $purchaseOrderLine->qty }}</td>
                     <td>{{ $purchaseOrderLine->price }}</td>
                     <td>{{ $purchaseOrderLine->discount }}</td>
