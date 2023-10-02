@@ -8,6 +8,7 @@ use Arcanedev\LogViewer\Entities\LogEntry;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Routing\Route;
 
 class DashboardController extends Controller
@@ -102,6 +103,48 @@ class DashboardController extends Controller
             'twitter' => User::whereHas('providers', function ($query) {
                 $query->where('provider', 'twitter');
             })->count(),
+        ];
+
+        return response($data);
+    }
+
+    public function getReportingPage()
+    {
+        $products = Product::all();
+
+        return view('admin.reporting', [
+            'products' => $products,
+        ]);
+    }
+
+    public function getAllDataProducts()
+    {
+        $products = Product::all();
+
+        for ($i = 0; $i < count($products); $i++) { 
+            if ($products[$i]['price'] < 50_000) {
+                $products[$i]['price_range'] = 'less_50000';
+            } elseif ($products[$i]['price'] >= 50_000 && $products[$i]['price'] < 99_000) {
+                $products[$i]['price_range'] = '_50000_99999';
+            } elseif ($products[$i]['price'] >= 100_000 && $products[$i]['price'] < 999_999) {
+                $products[$i]['price_range'] = '_100000_999999';
+            } else {
+                $products[$i]['price_range'] = 'more_than_equal_1000000';
+            }
+
+            $products[$i]['created_range'] = substr($products[$i]['created_at'], 0, 7);
+        }
+
+        return response($products);
+    }
+
+    public function getProductChartData()
+    {
+        $data = [
+            'less_50000' => 50,
+            '_50000_99999' => 43,
+            '_100000_999999' => 343,
+            'more_than_equal_1000000' => 21,
         ];
 
         return response($data);
